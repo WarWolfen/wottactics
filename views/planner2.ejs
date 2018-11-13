@@ -2,7 +2,8 @@
 <html lang="<%=locale%>" style="width: 100%; height:100%">
 <head>
 	<% include common_headers.ejs %>
-	<link rel="stylesheet" href="<%=static_host%>/stylesheets/bootstrap-select.min.css">
+  <link rel="stylesheet" href="<%=static_host%>/stylesheets/bootstrap-select.min.css">
+	<link rel="stylesheet" href="<%=static_host%>/stylesheets/fontawesome-all.min.css">
 	<link rel="stylesheet" href="<%=static_host%>/stylesheets/jquery.simplecolorpicker.css">
 	<% if (game == 'wot') { %>
 		<link rel="stylesheet" href="<%=static_host%>/wot_assets.css">
@@ -108,13 +109,13 @@
 	<script defer src="<%=static_host%>/javascripts/curve.js"></script>
 	<script defer src="<%=static_host%>/javascripts/planner.js"></script>	
 	<%}%>
-
+  
+	<%if (false) {%>  
 	<script defer src="<%=static_host%>/javascripts/combined_mini.js"></script>
 	<script defer src="<%=static_host%>/javascripts/planner.js"></script>			
+	<%}%>
 
-  <%if (false) {%>  
 	<script defer src="<%=static_host%>/javascripts/combined.js"></script>
-  <%}%>
 
 	<title><%=game.toUpperCase()%> <%=l('Tactics')%> - <%=l('Planner')%></title>
 	<meta name="description" content="<%=game.toUpperCase()%> <%=l('strategy')%>">
@@ -174,14 +175,16 @@
 		</nav>	
 		<div id="map_select_section" style="padding:10px; padding-top:0px; flex: 0 1 auto; justify-content: flex-start;">
 			<div id="map_select_box">
-			<h4><%=l('Map')%>&nbsp;<span id="map_size"></span></h4>
+			<h4><%=l('Map')%>&nbsp;<span id="map_size"></span>&nbsp;
+				<a id='change_map_size_popover' data-placement="bottom" data-toggle="popover" style="color:black" data-content="<div style='display:flex'><input style='width:100px' type='number' id='map_size_x'><div style='color:black; margin:auto'>X</div><input style='width:100px' type='number' id='map_size_y'><button id='save_map_size' class='btn btn-default'><%=l('Save')%></button></div>" title="<%=l('Change size')%>">
+					<i title="<%=l('Change map size')%>" style="color:white" class="fa fa-cog"></i>
+				</a>
+			</h4>
 			<div class="dropdown inline" id="map_select_container">
 				<select class="selectpicker" data-live-search="true" id="map_select">
 				<%-include(game + '_maps')%>
 				</select>
 			</div>
-			
-			
 			<%if (game == 'wot') { %>
 				<div class="dropdown inline" style="display:none" id="wotbase_select_container">
 					<select class="selectpicker" data-live-search="true" id="wotbase_select"><%include wotbase_wot_maps.ejs%></select>
@@ -214,9 +217,9 @@
 			</div>
 			<span id="zoom_level">1</span>x
 			<%if (game == 'wot') { %>
-				<br /><input id="select_hd" name="map_type_select" type="radio" style="vertical-align:-2px;" checked /> <span><%=l('Use HD minimaps')%></span>
-				<br /><input id="select_wotbase" name="map_type_select" type="radio" style="vertical-align:-2px;" /> <span><%=l('Use Wotbase maps')%></span>
-				<br /><input id="select_new_minimap" name="map_type_select" type="radio" style="vertical-align:-2px;" /> <span><%=l('Use New minimaps')%></span>
+				<br /><input id="select_hd" name="map_type_select" type="radio" style="vertical-align:-2px;" checked /> <label style="font-weight: normal; margin:0" for="select_hd"><%=l('Use HD minimaps')%></label>
+				<br /><input id="select_wotbase" name="map_type_select" type="radio" style="vertical-align:-2px;" /> <label style="font-weight: normal; margin:0" for="select_wotbase"><%=l('Use Wotbase maps')%></label>
+				<br /><input id="select_new_minimap" name="map_type_select" type="radio" style="vertical-align:-2px;" /> <label style="font-weight: normal; margin:0" for="select_new_minimap"><%=l('Use New minimaps')%></label>
 			<%} else if (game == 'R6') { %>
 				<br /><input id="select_hd" name="map_type_select" type="radio" style="vertical-align:-2px;" checked /> <span><%=l('Normal')%></span>
 				<br /><input id="select_wotbase" name="map_type_select" type="radio" style="vertical-align:-2px;" /> <span><%=l('Annotated')%></span>				
@@ -1271,4 +1274,3 @@
 	
 	<div id='dpitest' style='height: 1in; left: -100%; position: absolute; top: -100%; width: 1in;'></div>
 </body>
-
